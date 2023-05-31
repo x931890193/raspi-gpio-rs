@@ -9,19 +9,19 @@ fn main() {
         std::process::exit(1);
     }
     println!("Hello, raspi-gpio-rs! use pin {}", args[1]);
-    let pin23 = Pin::new(args[1].parse::<u64>().unwrap());
+    let pin = Pin::new(args[1].parse::<u64>().unwrap());
     // export the pin
-    pin23.export().expect("Unable to export pin");
+    pin.export().expect("Unable to export pin");
     // set the direction of the pin out
-    pin23.set_direction(sysfs_gpio::Direction::Out).expect("Unable to set direction");
+    pin.set_direction(sysfs_gpio::Direction::Out).expect("Unable to set direction");
     // set the value of the pin to high
-    pin23.set_value(1).expect("Unable to set value");
+    pin.set_value(1).expect("Unable to set value");
     // sleep for 5 seconds
     std::thread::sleep(std::time::Duration::from_secs(5));
     // get the value of the pin
-    assert!(pin23.get_value() == Ok(1));
+    assert_eq!(pin23.get_value().unwrap(), 1);
     // set low the value of the pin
-    pin23.set_value(0).expect("Unable to set value");
+    pin.set_value(0).expect("Unable to set value");
     // unexport the pin
-    pin23.unexport().expect("Unable to unexport pin");
+    pin.unexport().expect("Unable to unexport pin");
 }
