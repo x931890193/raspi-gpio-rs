@@ -19,7 +19,7 @@ fn main() {
     // sleep for 5 seconds
     std::thread::sleep(std::time::Duration::from_secs(5));
     // get the value of the pin
-    assert_eq!(pin23.get_value().unwrap(), 1);
+    assert_eq!(pin.get_value().unwrap(), 1);
     // set low the value of the pin
     pin.set_value(0).expect("Unable to set value");
     // unexport the pin
